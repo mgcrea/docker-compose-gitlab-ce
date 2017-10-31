@@ -15,7 +15,7 @@ services:
       - LETSENCRYPT_HOST=${GITLAB_HOST}
       - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
     ports:
-      - ${GITLAB_SSH_PORT}
+      - ${GITLAB_SSH_IP}:${GITLAB_SSH_PORT}:22
     volumes:
       - './volumes/config:/etc/gitlab'
       - './volumes/logs:/var/log/gitlab'
