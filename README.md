@@ -20,6 +20,7 @@ Made to work behind a separate automated [nginx-proxy](https://github.com/jwilde
 ```bash
 git clone git@github.com:mgcrea/docker-compose-gitlab-ce.git gitlab; cd $_
 cp .env.default .env; nano .env
+make
 docker-compose up -d
 ```
 
@@ -29,7 +30,6 @@ docker-compose up -d
 ```bash
 source .env
 docker run --rm -it gitlab/gitlab-ce:${GITLAB_CE_VERSION} postgres --version
-# docker exec -it gitlab vim /etc/gitlab/gitlab.rb
 ```
 
 
