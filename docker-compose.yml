@@ -1,0 +1,65 @@
+# https://hub.docker.com/r/gitlab/gitlab-ce
+# https://docs.gitlab.com/omnibus/settings/nginx.html#using-a-non-bundled-web-server
+
+version: '2.1'
+services:
+  gitlab:
+    image: gitlab/gitlab-ce:${GITLAB_CE_VERSION}
+    restart: always
+    container_name: gitlab
+    hostname: 'gitlab.mgcrea.io'
+    environment:
+      - TZ=${TZ}
+      - VIRTUAL_HOST=${GITLAB_HOST}
+      - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=${GITLAB_HOST}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+    ports:
+      - ${GITLAB_SSH_PORT}
+    volumes:
+      - './volumes/config:/etc/gitlab'
+      - './volumes/logs:/var/log/gitlab'
+      - './volumes/data:/var/opt/gitlab'
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - default
+      - nginx_proxy
+
+  runner:
+    image: gitlab/gitlab-runner:alpine-v10.1.0
+    restart: always
+    container_name: gitlab_runner
+    environment:
+      - CI_SERVER_URL=https://${GITLAB_HOST}/
+    volumes:
+      - ./volumes/runner:/etc/gitlab-runner
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+
+  postgres:
+    image: postgres:9.6.5-alpine
+    restart: always
+    container_name: gitlab_postgresql
+    # https://github.com/docker-library/docs/tree/master/postgres#environment-variables
+    environment:
+      - POSTGRES_USER=gitlab
+      - POSTGRES_DB=gitlabhq_production
+    volumes:
+      - ./volumes/postgres:/var/lib/postgresql/data
+    restart: always
+
+  redis:
+    image: redis:3-alpine
+    restart: always
+    container_name: gitlab_redis
+    command:
+      - --loglevel warning
+    volumes:
+      - ./volumes/redis:/var/lib/redis
+    restart: always
+
+networks:
+  nginx_proxy:
+    external:
+      name: nginxproxy_default
