@@ -29,6 +29,7 @@ docker-compose up -d
 ```bash
 source .env
 docker run --rm -it gitlab/gitlab-ce:${GITLAB_CE_VERSION} postgres --version
+# docker exec -it gitlab vim /etc/gitlab/gitlab.rb
 ```
 
 
