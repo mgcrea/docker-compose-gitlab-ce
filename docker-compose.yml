@@ -7,7 +7,7 @@ services:
     image: gitlab/gitlab-ce:${GITLAB_CE_VERSION}
     restart: always
     container_name: gitlab
-    hostname: 'gitlab.mgcrea.io'
+    hostname: "${GITLAB_HOST}"
     environment:
       - TZ=${TZ}
       - VIRTUAL_HOST=${GITLAB_HOST}
