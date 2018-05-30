@@ -28,7 +28,7 @@ services:
       - nginx_proxy
 
   runner:
-    image: gitlab/gitlab-runner:${GITLAB_CE_VERSION}
+    image: gitlab/gitlab-runner:${GITLAB_RUNNER_VERSION}
     restart: always
     container_name: gitlab_runner
     environment:
