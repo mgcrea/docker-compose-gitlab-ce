@@ -28,7 +28,7 @@ services:
       - nginx_proxy
 
   runner:
-    image: gitlab/gitlab-runner:alpine-v10.1.0
+    image: gitlab/gitlab-runner:${GITLAB_CE_VERSION}
     restart: always
     container_name: gitlab_runner
     environment:
@@ -38,7 +38,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:rw
 
   postgres:
-    image: postgres:9.6.5-alpine
+    image: postgres:${POSTGRES_VERSION}
     restart: always
     container_name: gitlab_postgresql
     # https://github.com/docker-library/docs/tree/master/postgres#environment-variables
@@ -50,7 +50,7 @@ services:
     restart: always
 
   redis:
-    image: redis:3-alpine
+    image: redis:${REDIS_VERSION}
     restart: always
     container_name: gitlab_redis
     command:
@@ -62,4 +62,4 @@ services:
 networks:
   nginx_proxy:
     external:
-      name: nginxproxy_default
+      name: ${NGINX_PROXY_NETWORK_NAME}
