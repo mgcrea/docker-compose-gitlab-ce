@@ -11,6 +11,7 @@
 ##! For more details on configuring external_url see:
 ##! https://docs.gitlab.com/omnibus/settings/configuration.html#configuring-the-external-url-for-gitlab
 external_url 'https://${GITLAB_HOST}'
+registry_external_url 'https://${REGISTRY_HOST}'
 
 ### Trusted proxies
 ###! Customize if you have GitLab behind a reverse proxy which is running on a
@@ -55,7 +56,9 @@ redis['enable'] = false
 ##! **Override only if you use a reverse proxy**
 ##! Docs: https://docs.gitlab.com/omnibus/settings/nginx.html#setting-the-nginx-listen-port
 nginx['listen_port'] = 80
+registry_nginx['listen_port'] = 80
 
 ##! **Override only if your reverse proxy internally communicates over HTTP**
 ##! Docs: https://docs.gitlab.com/omnibus/settings/nginx.html#supporting-proxied-ssl
 nginx['listen_https'] = false
+registry_nginx['listen_https'] = false
