@@ -8,7 +8,7 @@ Working `docker-compose.yml` for official [gitlab-ce](https://hub.docker.com/r/g
 
 - Uses official [postgres](https://hub.docker.com/_/postgres/) docker image
 - Uses official [redis](https://hub.docker.com/_/redis/) docker image
-- Comes with a [gitlab-runner](https://hub.docker.com/gitlab/gitlab-runner/) instance
+- Comes with a [gitlab-runner](https://hub.docker.com/r/gitlab/gitlab-runner/) instance
 
 Made to work behind a separate automated [nginx-proxy](https://github.com/jwilder/nginx-proxy) with SSL support via letsencrypt.
 
