@@ -9,5 +9,8 @@ bash:
 reconfigure:
 	@docker-compose exec gitlab gitlab-ctl reconfigure
 
+backup:
+  @docker-compose exec gitlab gitlab-rake gitlab:backup:create
+
 build:
 	@bash scripts/buildEnv.sh
