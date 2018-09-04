@@ -30,6 +30,20 @@ gitlab_rails['db_host'] = "postgres"
 ###! Docs: https://docs.gitlab.com/omnibus/settings/redis.html
 gitlab_rails['redis_host'] = "redis"
 
+### GitLab email server settings
+###! Docs: https://docs.gitlab.com/omnibus/settings/smtp.html
+###! **Use smtp instead of sendmail/postfix.**
+
+gitlab_rails['smtp_enable'] = ${GITLAB_SMTP_ENABLE}
+gitlab_rails['smtp_address'] = "${GITLAB_SMTP_ADDRESS}"
+gitlab_rails['smtp_port'] = ${GITLAB_SMTP_PORT}
+gitlab_rails['smtp_user_name'] = "${GITLAB_SMTP_USERNAME}"
+gitlab_rails['smtp_password'] = "${GITLAB_SMTP_PASSWORD}"
+gitlab_rails['smtp_domain'] = "${GITLAB_SMTP_DOMAIN}"
+gitlab_rails['smtp_authentication'] = "login"
+gitlab_rails['smtp_enable_starttls_auto'] = true
+gitlab_rails['smtp_tls'] = true
+
 ################################################################
 ## GitLab PostgreSQL
 ################################################################
