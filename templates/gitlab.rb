@@ -44,6 +44,9 @@ gitlab_rails['smtp_authentication'] = "login"
 gitlab_rails['smtp_enable_starttls_auto'] = true
 gitlab_rails['smtp_tls'] = true
 
+gitlab_rails['gitlab_email_from'] = 'gitlab@${GITLAB_SMTP_DOMAIN}'
+gitlab_rails['gitlab_email_reply_to'] = 'noreply@${GITLAB_SMTP_DOMAIN}'
+
 ################################################################
 ## GitLab PostgreSQL
 ################################################################
