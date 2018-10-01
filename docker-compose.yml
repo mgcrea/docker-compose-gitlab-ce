@@ -10,9 +10,9 @@ services:
     hostname: "${GITLAB_HOST}"
     environment:
       - TZ=${TZ}
-      - VIRTUAL_HOST=${GITLAB_HOST},${REGISTRY_HOST},${PAGES_HOST}
+      - VIRTUAL_HOST=${GITLAB_HOST},${REGISTRY_HOST}
       - VIRTUAL_PORT=80
-      - LETSENCRYPT_HOST=${GITLAB_HOST},${REGISTRY_HOST},${PAGES_HOST}
+      - LETSENCRYPT_HOST=${GITLAB_HOST},${REGISTRY_HOST}
       - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
     ports:
       - ${GITLAB_SSH_IP}:${GITLAB_SSH_PORT}:22
@@ -25,6 +25,35 @@ services:
       - postgres
     networks:
       - default
+      - nginx_proxy
+
+  pages:
+    image: gitlab/gitlab-ce:${GITLAB_CE_VERSION}
+    restart: always
+    container_name: gitlab_pages
+    hostname: "${PAGES_HOST}"
+    environment:
+      - TZ=${TZ}
+      - VIRTUAL_HOST=${PAGES_HOST},*.${PAGES_HOST}
+      - VIRTUAL_PORT=8090
+      - HTTPS_METHOD=nohttps
+      # - LETSENCRYPT_HOST=${PAGES_HOST}
+      # - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+    expose:
+      - 8090/tcp
+    entrypoint:
+      - /opt/gitlab/embedded/bin/gitlab-pages
+    command:
+      - -listen-proxy
+      - "0.0.0.0:8090"
+      - -pages-domain
+      - "${PAGES_HOST}"
+      - -pages-root
+      - "/var/opt/gitlab/gitlab-rails/shared/pages"
+    volumes:
+      - './volumes/data/gitlab-pages:/var/opt/gitlab/gitlab-pages:rw'
+      - './volumes/data/gitlab-rails/shared/pages:/var/opt/gitlab/gitlab-rails/shared/pages:ro'
+    networks:
       - nginx_proxy
 
   runner:

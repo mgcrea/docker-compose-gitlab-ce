@@ -12,8 +12,8 @@
 ##! https://docs.gitlab.com/omnibus/settings/configuration.html#configuring-the-external-url-for-gitlab
 external_url 'https://${GITLAB_HOST}'
 registry_external_url 'https://${REGISTRY_HOST}'
-pages_external_url 'https://${PAGES_HOST}'
-
+pages_external_url 'http://${PAGES_HOST}'
+ 
 ### Trusted proxies
 ###! Customize if you have GitLab behind a reverse proxy which is running on a
 ###! different machine.
@@ -48,7 +48,7 @@ gitlab_rails['smtp_tls'] = true
 gitlab_rails['gitlab_email_from'] = 'gitlab@${GITLAB_SMTP_DOMAIN}'
 gitlab_rails['gitlab_email_reply_to'] = 'noreply@${GITLAB_SMTP_DOMAIN}'
 
-gitlab_pages['enable'] = true
+alertmanager['listen_address'] = 'localhost:9093'
 
 ################################################################
 ## GitLab PostgreSQL
@@ -85,3 +85,11 @@ nginx['listen_https'] = false
 registry_nginx['listen_https'] = false
 pages_nginx['listen_https'] = false
 
+################################################################################
+## GitLab Pages
+##! Docs: https://docs.gitlab.com/ce/pages/administration.html
+################################################################################
+
+gitlab_pages['enable'] = true
+gitlab_pages['inplace_chroot'] = true
+gitlab_pages['listen_proxy'] = "0.0.0.0:8090"
