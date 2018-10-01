@@ -48,6 +48,8 @@ gitlab_rails['smtp_tls'] = true
 gitlab_rails['gitlab_email_from'] = 'gitlab@${GITLAB_SMTP_DOMAIN}'
 gitlab_rails['gitlab_email_reply_to'] = 'noreply@${GITLAB_SMTP_DOMAIN}'
 
+gitlab_pages['enable'] = true
+
 ################################################################
 ## GitLab PostgreSQL
 ################################################################
