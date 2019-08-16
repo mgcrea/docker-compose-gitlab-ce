@@ -18,7 +18,7 @@ Made to work behind a separate automated [nginx-proxy](https://github.com/jwilde
 - You can quickly start your compose gitlab instance (requires a working automated nginx_proxy compose instance)
 
 ```bash
-git clone git@github.com:mgcrea/docker-compose-gitlab-ce.git gitlab; cd $_
+git clone https://github.com/mgcrea/docker-compose-gitlab-ce.git gitlab; cd $_
 cp .env.default .env; nano .env
 make
 docker-compose up -d
